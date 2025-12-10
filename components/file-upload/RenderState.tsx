@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { CloudUpload, ImageIcon, XIcon } from "lucide-react";
+import { CloudUpload, ImageIcon, Loader2Icon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 
@@ -17,14 +17,20 @@ export function RenderState({isDragActive}:{isDragActive:boolean}){
         </div>
     )
 }
-export function RenderImageState({previewURL}:{previewURL:string}){
+export function RenderImageState({previewURL,isDeleting,handleRemove}:{previewURL:string,isDeleting:boolean,handleRemove:()=>void}){
     return (
         <div>
             <Image src={previewURL} alt="Display Image" fill className="object-contain p-2"/>
             <Button variant='destructive' className={cn(
                 "absolute top-4 right-4"
-            )}>
-                <XIcon className="size-4"/>
+            )} onClick={handleRemove} disabled={isDeleting}>
+                {
+                    isDeleting?(
+                        <Loader2Icon className="size-4 animate-spin"/>
+                    ):(
+                        <XIcon className="size-4"/>
+                    )
+                }
             </Button>
         </div>
     )

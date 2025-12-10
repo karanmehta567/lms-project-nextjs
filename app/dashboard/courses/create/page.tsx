@@ -6,15 +6,20 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Link from "next/link";
-import { ArrowLeft, PlusIcon, SparkleIcon } from "lucide-react";
+import { ArrowLeft, Loader2Icon, PlusIcon, SparkleIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import slugify from 'slugify'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TipTapEditor } from "@/components/rich-text-editor/TipTap";
 import { Uploader } from "@/components/file-upload/Uploader";
+import { useTransition } from "react";
+import { CreateCoursePrisma } from "./serveraction";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CreateCourse() {
-
+    const [StartTrasition,SetTransition]=useTransition()
+    const router=useRouter()
   // Initialize form with full schema + defaults
 const form = useForm<ZodSchemaType>({
     resolver: zodResolver(ZodSchema) as any,
@@ -31,9 +36,20 @@ const form = useForm<ZodSchemaType>({
     },
 });
 function onSubmit(values: ZodSchemaType) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+    SetTransition(async()=>{
+        try {
+            const result=await CreateCoursePrisma(values)
+            if(result.status=='error'){
+                toast.error(result.message)
+            }else{
+                toast.success(result.message)
+                form.reset()
+                router.push('/dashboard/courses')
+            }
+        } catch (error) {
+            toast.error("Something went wrong")
+        }
+    })
 }
 return (
     <>
@@ -94,7 +110,7 @@ return (
                     <FormItem className="w-full">
                         <FormLabel>ThumbNail Image</FormLabel>
                         <FormControl>
-                            <Uploader/>
+                            <Uploader value={field.value} onChange={field.onChange}/>
                         </FormControl>
                         <FormMessage/>
                     </FormItem>
@@ -182,8 +198,19 @@ return (
                         <FormMessage/>
                     </FormItem>
                 )}/>
-                <Button>
-                    Create Course <PlusIcon size={16} className="ml-1"/>
+                <Button type="submit" disabled={StartTrasition}>
+                    {
+                        StartTrasition?(
+                            <>
+                            <p>Creating....</p>
+                            <Loader2Icon className="size-4 ml-1"/>
+                            </>
+                        ):(
+                            <>
+                            Create Course <PlusIcon className="ml-1" size={16}/>
+                            </>
+                        )
+                    }
                 </Button>
             </form>
         </Form>

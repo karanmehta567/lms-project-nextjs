@@ -4,6 +4,10 @@ import z from "zod"
 import { v4 as uuidv4 } from 'uuid';
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3Bucket } from "@/lib/s3-client";
+import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { ReqAdmin } from "@/app/data/user/require";
 
 export const FileUploadSchema=z.object({
     fileName:z.string().min(1,{message:'File Name required'}),
@@ -11,8 +15,27 @@ export const FileUploadSchema=z.object({
     size:z.number().min(1,{message:'Size required'}),
     isImage:z.boolean()
 })
+export const arcjetRule=arcjet.withRule(
+    detectBot({
+        mode:'LIVE',
+        allow:[]
+    })
+).withRule(
+    fixedWindow({
+        mode:'LIVE',
+        window:'1m',
+        max:5
+    })
+)
 export async function POST(request:Request){
+    const session=await ReqAdmin()
     try {
+        const decision=await arcjetRule.protect(request,{
+            fingerprint:session?.user?.id as string
+        })
+        if(decision.isDenied()){
+            return NextResponse.json({error:'Get Away Oversmart Kid!'},{status:420})
+        }
         const body=await request.json()
         const bodyParse=FileUploadSchema.safeParse(body)
         if(!bodyParse.success){

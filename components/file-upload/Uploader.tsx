@@ -18,7 +18,11 @@ interface UploadeState{
     objectUrl?:string,
     fileType:"image"|"video"
 }
-export function Uploader(){
+interface IAppProps{
+    value?:string,
+    onChange?:(value:string)=>void 
+}
+export function Uploader({onChange,value}:IAppProps){
     const [uploadState,SetUplaodState]=useState<UploadeState>({
         error:false,
         file:null,
@@ -26,7 +30,8 @@ export function Uploader(){
         uploading:false,
         indicator:0,
         isDeleting:false,
-        fileType:'image'
+        fileType:'image',
+        key:value
     })
     async function uploadFile(file:File){
         SetUplaodState((prev)=>({
@@ -69,6 +74,7 @@ export function Uploader(){
                 xhr.onload = () => {
                     if (xhr.status === 200 || xhr.status === 204) {
                         SetUplaodState(prev => ({ ...prev, indicator: 100, uploading:false, key }))
+                        onChange?.(key)
                         toast.success("Upload Successful")
                         resolve()
                     } else reject(new Error("Upload failed"))
@@ -87,6 +93,52 @@ export function Uploader(){
                 progress:0,
                 error:true,
                 uploading:false
+            }))
+        }
+    }
+    async function DeleteFile(){
+        if(uploadState.isDeleting||!uploadState.objectUrl){
+            return;
+        }
+        try {
+            SetUplaodState((prev)=>({
+                ...prev,
+                isDeleting:true,
+            }))
+            const response=await fetch('/api/s3/delete',{
+                method:'DELETE',
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({
+                    key:uploadState.key
+                })
+            })
+            if(!response.ok){
+                toast.error("Failed to delete file")
+                SetUplaodState((prev)=>({
+                    ...prev,
+                    isDeleting:true,
+                    error:true
+                }))
+                return;
+            }
+            onChange?.("")
+            SetUplaodState((prev)=>({
+                file:null,
+                uploading:false,
+                indicator:0,
+                objectUrl:undefined,
+                error:false,
+                fileType:'image',
+                id:null,
+                isDeleting:false
+            }))
+            toast.success("File deleted succesfully!")
+        } catch (error) {
+            toast.error("File not deleted !")
+            SetUplaodState((prev)=>({
+                ...prev,
+                isDeleting:false,
+                error:true
             }))
         }
     }
@@ -131,13 +183,13 @@ export function Uploader(){
         }
         if(uploadState.objectUrl){
             return (
-                <RenderImageState previewURL={uploadState.objectUrl}/>
+                <RenderImageState handleRemove={DeleteFile} isDeleting={uploadState.isDeleting} previewURL={uploadState.objectUrl}/>
             )
         }
         return <RenderState isDragActive={isDragActive}/>
     }
     const {getRootProps, getInputProps,isDragActive} = useDropzone(
-        {onDrop,accept:{"image/*":[]},maxFiles:1,multiple:false,maxSize:10*1024*1024,onDropRejected:DropRejection}
+        {onDrop,accept:{"image/*":[]},maxFiles:1,multiple:false,maxSize:10*1024*1024,onDropRejected:DropRejection,disabled:uploadState.uploading||!!uploadState.objectUrl}
     ) 
     return (
         <Card {...getRootProps()} className={cn(
