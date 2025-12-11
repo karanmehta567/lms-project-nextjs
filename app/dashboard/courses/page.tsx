@@ -1,16 +1,23 @@
+import { GetCourses } from "@/app/data/user/Courses";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
+import AdminLayout from "./_components/AdminComponent";
 
-export default function Courses(){
+export default async function Courses(){
+    const courses=await GetCourses();
     return (
-    <>
-    <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Your Courses</h1>
-        <Link href={'/dashboard/courses/create'} className={buttonVariants()}>Create Course</Link>
-    </div>
-    <div>
-        <h1>Here you will see all of the courses</h1>
-    </div>
-    </>
+        <>
+        <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-semibold">Your Courses</h1>
+            <Link href={'/dashboard/courses/create'} className={buttonVariants()}>Create Course</Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-7">
+            {
+                courses.map((course)=>(
+                    <AdminLayout data={course} key={course.id}/>
+                ))
+            }
+        </div>
+        </>
     )
 }

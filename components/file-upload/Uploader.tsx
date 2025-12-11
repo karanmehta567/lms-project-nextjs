@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { v4 as uuidv4 } from 'uuid';
 import { RenderError, RenderImageState, RenderProgressBar, RenderState } from './RenderState'
 import { toast } from 'sonner'
+import useImageHook from '@/hooks/use-construct'
 
 interface UploadeState{
     id:string|null,
@@ -23,6 +24,7 @@ interface IAppProps{
     onChange?:(value:string)=>void 
 }
 export function Uploader({onChange,value}:IAppProps){
+    const fileUrl=useImageHook(value||'')
     const [uploadState,SetUplaodState]=useState<UploadeState>({
         error:false,
         file:null,
@@ -31,7 +33,8 @@ export function Uploader({onChange,value}:IAppProps){
         indicator:0,
         isDeleting:false,
         fileType:'image',
-        key:value
+        key:value,
+        objectUrl:fileUrl
     })
     async function uploadFile(file:File){
         SetUplaodState((prev)=>({

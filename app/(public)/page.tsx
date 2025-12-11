@@ -39,7 +39,7 @@ return (
                 The Future of Education
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight">Elevate your Learning Experience</h1>
-            <p className="max-w-[700px] text-muted-foreground md:text-xl">Discover new way of learning with our modern management system.<br/>Access high quality courses anytime and anywhere</p>
+            <p className="max-w-[800px] text-muted-foreground md:text-xl">Discover new way of learning with our modern management system.<br/>Access high quality courses anytime and anywhere</p>
             <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <Link href={'/courses'} className={buttonVariants({
                     size:'lg',

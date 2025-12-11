@@ -1,23 +1,11 @@
 "use server"
 import { ReqAdmin } from "@/app/data/user/require"
-import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet"
+import { arcjetRule } from "@/lib/arcjet-rule"
 import prisma from "@/lib/db"
 import { APIResponse } from "@/lib/types"
 import { ZodSchema, ZodSchemaType } from "@/lib/zodSchema"
 import { request } from "@arcjet/next"
 
-export const arcjetRule=arcjet.withRule(
-    detectBot({
-        mode:'LIVE',
-        allow:[]
-    })
-).withRule(
-    fixedWindow({
-        mode:'LIVE',
-        window:'1m',
-        max:5
-    })
-)
 export async function CreateCoursePrisma(value:ZodSchemaType):Promise<APIResponse>{
     const session=await ReqAdmin();
     try {

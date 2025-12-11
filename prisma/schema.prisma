@@ -86,7 +86,7 @@ model Verification {
 }
 
 model Courses {
-  id          String          @default(uuid())
+  id          String          @default(uuid()) @id
   title       String
   description String
   fileKey     String
