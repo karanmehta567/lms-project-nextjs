@@ -5,6 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
 import { DropDownHandler } from "./DropDown";
+import { Loader2Icon } from "lucide-react";
 
 const NavItems=[
     {
@@ -45,7 +46,7 @@ export function Navbar(){
                 <div className="flex items-center justify-center space-x-4">
                     <ModeToggle/>
                     {
-                        isPending?null:session?(
+                        isPending?<Loader2Icon className="size-4 animate-spin"/>:session?(
                             <DropDownHandler
                                 email={session.user.email}
                                 name={session?.user?.name&&session.user.name.length>0?session.user.name:session?.user?.email.split("@")[0]}

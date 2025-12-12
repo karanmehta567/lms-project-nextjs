@@ -34,7 +34,6 @@ export function Uploader({onChange,value}:IAppProps){
         isDeleting:false,
         fileType:'image',
         key:value,
-        objectUrl:fileUrl
     })
     async function uploadFile(file:File){
         SetUplaodState((prev)=>({
