@@ -1,10 +1,13 @@
 // lib/prisma.ts
 import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg"; // adapter for Postgres
+import { PrismaPg } from "@prisma/adapter-pg";
+import {Pool} from 'pg'
 
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL!, // or pass config object the adapter expects
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
 });
+
+const adapter = new PrismaPg(pool);
 
 export const prisma = new PrismaClient({ adapter });
 export default prisma;
