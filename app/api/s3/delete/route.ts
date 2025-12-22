@@ -1,9 +1,7 @@
 import { ReqAdmin } from "@/app/data/user/require";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
-import { auth } from "@/lib/auth";
 import { S3Bucket } from "@/lib/s3-client";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 export const arcjetRule=arcjet.withRule(

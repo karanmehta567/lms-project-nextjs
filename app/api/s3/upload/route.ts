@@ -5,8 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3Bucket } from "@/lib/s3-client";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
 import { ReqAdmin } from "@/app/data/user/require";
 
 export const FileUploadSchema=z.object({

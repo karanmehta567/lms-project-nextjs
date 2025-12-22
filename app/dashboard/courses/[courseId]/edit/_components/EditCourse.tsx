@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import slugify from 'slugify'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TipTapEditor } from "@/components/rich-text-editor/TipTap";
-import { Uploader } from "@/components/file-upload/Uploader";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

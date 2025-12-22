@@ -21,4 +21,19 @@ export const ZodSchema=z.object({
     slug:z.string().min(3,{message:'Slug must be min 3'}),
     status:z.enum(CourseStatus,{message:'Status required!'})
 })
+export const ChapterSchema=z.object({
+    name:z.string().min(3,{message:'Name must be atleast 3 chars'}),
+    courseId:z.string().uuid({message:'Invalid course id'}),
+
+})
+export const LessonSchema=z.object({
+    name:z.string().min(3,{message:'Name must be atleast 3 chars'}),
+    courseId:z.string().uuid({message:'Invalid course id'}),
+    chapterId:z.string().uuid({message:'Invalid chapter id'}),
+    description:z.string().min(3,{message:'Description must be atleast 3 chars long'}).optional(),
+    thumbnailKey:z.string().optional(),
+    videoKey:z.string().optional()
+})
 export type ZodSchemaType = z.infer<typeof ZodSchema>;
+export type ChapterSchmeaType=z.infer<typeof ChapterSchema>
+export type LessonSchemaType=z.infer<typeof LessonSchema>

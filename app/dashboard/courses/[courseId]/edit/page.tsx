@@ -6,6 +6,7 @@ import CourseStrcture from "./_components/CourseStructure"
 type Params=Promise<{courseId:string}>
 
 export default async function CourseEdit({params}:{params:Params}){
+    
     const {courseId}=await params
     const data=await AdminGetCourse(courseId)
     return (
@@ -16,7 +17,7 @@ export default async function CourseEdit({params}:{params:Params}){
             <Tabs defaultValue="" className="w-full">
                 <TabsList className="w-full">
                     <TabsTrigger value="basic-info" className="dark:hover:bg-black">Basic Info</TabsTrigger>
-                    {/* <TabsTrigger value="course-struc" className="dark:hover:bg-black">Course Structure</TabsTrigger> */}
+                    <TabsTrigger value="course-struc" className="dark:hover:bg-black">Course Structure</TabsTrigger>
                 </TabsList>
                 <TabsContent value="basic-info">
                     <Card>
@@ -31,7 +32,7 @@ export default async function CourseEdit({params}:{params:Params}){
                         <EditCourseForm data={data}/>
                     </Card>
                 </TabsContent>
-                {/* <TabsContent value="course-struc">
+                <TabsContent value="course-struc">
                     <Card>
                         <CardHeader>
                             <CardTitle>
@@ -41,9 +42,9 @@ export default async function CourseEdit({params}:{params:Params}){
                                 Here you can edit your course structure
                             </CardDescription> 
                         </CardHeader>
-                        <CourseStrcture/>
+                        <CourseStrcture data={data}/>
                     </Card>
-                </TabsContent> */}
+                </TabsContent>
             </Tabs>
         </div>
     )
