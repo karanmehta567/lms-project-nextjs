@@ -1,21 +1,15 @@
 import { ReqAdmin } from "@/app/data/user/require";
-import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { S3Bucket } from "@/lib/s3-client";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { NextResponse } from "next/server";
 
 export const arcjetRule=arcjet.withRule(
-    detectBot({
-        mode:'LIVE',
-        allow:[]
-    })
-).withRule(
     fixedWindow({
         mode:'LIVE',
         window:'1m',
         max:5
-    })
-)
+    }))
 export async function DELETE(request:Request){
     const session=await ReqAdmin() 
     try {

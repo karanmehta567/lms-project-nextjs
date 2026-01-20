@@ -19,7 +19,15 @@ export function TipTapEditor({field}:{field:any}){
         onUpdate:({editor})=>(
             field.onChange(JSON.stringify(editor.getJSON()))
         ),
-        content:field.value?JSON.parse(field.value):`<p>🧷</p>`,
+        content: field.value
+            ? (() => {
+                try {
+                    return JSON.parse(field.value) // if it's JSON
+                } catch {
+                    return field.value             // if it's HTML
+                }
+                })()
+            : `<p>🧷</p>`,
         immediatelyRender:false
     })
     return (

@@ -2,6 +2,7 @@ import { GetCourses } from "@/app/data/user/Courses";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import AdminLayout from "./_components/AdminComponent";
+import GeneralLayout from "@/components/general/GeneralLayout";
 
 export default async function Courses(){
     const courses=await GetCourses();
@@ -13,9 +14,19 @@ export default async function Courses(){
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-7">
             {
-                courses.map((course:any)=>(
-                    <AdminLayout data={course} key={course.id}/>
-                ))
+                courses.length===0?(
+                    <GeneralLayout title="No course found"
+                    description="Create a new course to get started"
+                    buttonText="Create Course"/>
+                ):(
+                    <>
+                    {
+                        courses.map((course:any)=>(
+                            <AdminLayout data={course} key={course.id}/>
+                        ))
+                    }
+                    </>
+                )
             }
         </div>
         </>

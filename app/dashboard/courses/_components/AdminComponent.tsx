@@ -11,10 +11,15 @@ interface IAppProps{
     data:AdminCourseType
 }
 export default function AdminLayout({data}:IAppProps){
-    const parsed = JSON.parse(data.description);
-    const descriptionText = parsed.content?.[0]?.content?.[0]?.text ?? "";
+    let descriptionText = ""
+    try {
+        const parsed = JSON.parse(data.description)
+        descriptionText = parsed?.content?.[0]?.content?.[0]?.text ?? ""
+    } catch (e) {
+    // fallback when description is HTML
+        descriptionText = data.description.replace(/<[^>]*>/g, "")
+    }
     const thumbailUrl=useImageHook(data.fileKey )
-    console.log('thumbail url',thumbailUrl)
     return (
         <Card className="group relative py-0 gap-0">
             <div className="absolute top-2 right-2 z-10">
@@ -26,18 +31,18 @@ export default function AdminLayout({data}:IAppProps){
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-48 max-h-60 overflow-y-auto">
                         <DropdownMenuItem asChild>
-                            <Link href={'/dashboard/courses/${data.id}/edit'}>
+                            <Link href={`/dashboard/courses/${data.id}/edit`}>
                                 <PencilIcon className="size-4 mr-2"/>Edit Course
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                            <Link href={'/dashboard/courses/${data.slug}'}>
+                            <Link href={`/dashboard/courses/${data.slug}`}>
                                 <EyeIcon className="size-4 mr-2"/>Preview Course
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator/>
                         <DropdownMenuItem asChild>
-                            <Link href={'/dashboard/courses/${data.id}/delete'}>
+                            <Link href={`/dashboard/courses/${data.id}/delete`}>
                                 <TrashIcon className="size-4 mr-2 text-destructive dark:text-red-600"/>Delete Course
                             </Link>
                         </DropdownMenuItem>
@@ -46,7 +51,7 @@ export default function AdminLayout({data}:IAppProps){
             </div>
             <Image src={thumbailUrl} alt='Thumbnail URL....' width={600} height={300} className="w-full rounded-t-lg aspect-video h-full object-cover"/>
             <CardContent className="p-4">
-                <Link href={`/dashboard/courses/${data.id}/edit`} className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors">{data.title}</Link>
+                <Link href={`/courses/${data.slug}`} className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors">{data.title}</Link>
                 <p className="line-clamp-2 text-sm text-muted-foreground leading-tight">{descriptionText}</p>
                 <div className="mt-4 flex items-center gap-x-5">
                     <div className="flex items-center gap-2">

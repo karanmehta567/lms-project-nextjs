@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { EditCoursePrisma } from "@/lib/edit";
 import { AdminCorseType } from "@/app/data/user/one-course";
+import { Uploader } from "@/components/file-upload/Uploader";
 
 interface IAppProps{
     data:AdminCorseType
@@ -88,15 +89,15 @@ export default function EditCourseForm({data}:IAppProps){
                         <FormMessage/>
                     </FormItem>
                 )}/>
-                {/* <FormField control={form.control} name='fileKey' render={({field})=>(
+                <FormField control={form.control} name='fileKey' render={({field})=>(
                     <FormItem className="w-full">
-                        <FormLabel>ThumbNail Image</FormLabel>
+                        <FormLabel>Thumbnail Image</FormLabel>
                         <FormControl>
-                            <Uploader value={field.value} onChange={field.onChange}/>
+                            <Uploader value={field.value} onChange={field.onChange} fileTypeAccepted='image'/>
                         </FormControl>
                         <FormMessage/>
                     </FormItem>
-                )}/> */}
+                )}/>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField control={form.control} name='category' render={({field})=>(
                     <FormItem className="w-full">

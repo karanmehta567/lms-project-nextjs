@@ -17,10 +17,16 @@ export function RenderState({isDragActive}:{isDragActive:boolean}){
         </div>
     )
 }
-export function RenderImageState({previewURL,isDeleting,handleRemove}:{previewURL:string,isDeleting:boolean,handleRemove:()=>void}){
+export function RenderImageState({previewURL,isDeleting,handleRemove,fileType}:{previewURL:string;isDeleting:boolean;handleRemove:()=>void;fileType:'image'|'video'}){
     return (
-        <div>
-            <Image src={previewURL} alt="Display Image" fill className="object-contain p-2"/>
+        <div className="relative group w-full h-full flex items-center justify-center">
+            {
+                fileType==='video'?(
+                    <video controls src={previewURL} className="rounded-md w-full h-full"/>
+                ):(
+                    <Image src={previewURL} alt="Display Image" fill className="object-contain p-2"/>
+                )
+            }
             <Button variant='destructive' className={cn(
                 "absolute top-4 right-4"
             )} onClick={handleRemove} disabled={isDeleting}>

@@ -22,8 +22,9 @@ interface UploadeState{
 interface IAppProps{
     value?:string,
     onChange?:(value:string)=>void 
+    fileTypeAccepted:'image'|'video'
 }
-export function Uploader({onChange,value}:IAppProps){
+export function Uploader({onChange,value,fileTypeAccepted}:IAppProps){
     const fileUrl=useImageHook(value||'')
     const [uploadState,SetUplaodState]=useState<UploadeState>({
         error:false,
@@ -32,8 +33,9 @@ export function Uploader({onChange,value}:IAppProps){
         uploading:false,
         indicator:0,
         isDeleting:false,
-        fileType:'image',
+        fileType:fileTypeAccepted,
         key:value,
+        objectUrl:value?fileUrl:undefined
     })
     async function uploadFile(file:File){
         SetUplaodState((prev)=>({
@@ -49,7 +51,7 @@ export function Uploader({onChange,value}:IAppProps){
                     fileName:file.name,
                     contentType:file.type,
                     size:file.size,
-                    isImage:true
+                    isImage:fileTypeAccepted==='image'?true:false
                 })
             })
             if(!preSignedResponse.ok){
@@ -107,6 +109,7 @@ export function Uploader({onChange,value}:IAppProps){
                 ...prev,
                 isDeleting:true,
             }))
+            // JAB BHI DATA BHEJNA HAI TO STRINGIFY KRKE BHEJNA , AUR LETE VAKT .JSON/PARSE KRKE
             const response=await fetch('/api/s3/delete',{
                 method:'DELETE',
                 headers:{"Content-Type":"application/json"},
@@ -130,7 +133,7 @@ export function Uploader({onChange,value}:IAppProps){
                 indicator:0,
                 objectUrl:undefined,
                 error:false,
-                fileType:'image',
+                fileType:fileTypeAccepted,
                 id:null,
                 isDeleting:false
             }))
@@ -155,11 +158,12 @@ export function Uploader({onChange,value}:IAppProps){
                 error:false,
                 id:uuidv4(),
                 isDeleting:false,
-                fileType:'image'
+                fileType:fileTypeAccepted
             })
             uploadFile(file)
         }
-    }, [])
+        // review
+    }, [uploadState.objectUrl,uploadFile,fileTypeAccepted])
     function DropRejection(fileRejection:FileRejection[]){
         if(fileRejection.length){
             const toomanyfiles=fileRejection.find((rejection)=>rejection.errors[0].code==='too-many-files')
@@ -185,13 +189,17 @@ export function Uploader({onChange,value}:IAppProps){
         }
         if(uploadState.objectUrl){
             return (
-                <RenderImageState handleRemove={DeleteFile} isDeleting={uploadState.isDeleting} previewURL={uploadState.objectUrl}/>
+                <RenderImageState handleRemove={DeleteFile} isDeleting={uploadState.isDeleting} previewURL={uploadState.objectUrl} fileType={uploadState.fileType}/>
             )
         }
         return <RenderState isDragActive={isDragActive}/>
     }
     const {getRootProps, getInputProps,isDragActive} = useDropzone(
-        {onDrop,accept:{"image/*":[]},maxFiles:1,multiple:false,maxSize:10*1024*1024,onDropRejected:DropRejection,disabled:uploadState.uploading||!!uploadState.objectUrl}
+        {onDrop,accept:fileTypeAccepted==='video'?{"video/*":[]}:{"image/*":[]},
+        maxFiles:1,multiple:false,
+        maxSize:fileTypeAccepted==='image'?10*1024*1024:5000*1024*1024,
+        onDropRejected:DropRejection,
+        disabled:uploadState.uploading||!!uploadState.objectUrl}
     ) 
     return (
         <Card {...getRootProps()} className={cn(

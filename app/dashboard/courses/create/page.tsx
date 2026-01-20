@@ -110,7 +110,7 @@ return (
                     <FormItem className="w-full">
                         <FormLabel>ThumbNail Image</FormLabel>
                         <FormControl>
-                            <Uploader value={field.value} onChange={field.onChange}/>
+                            <Uploader value={field.value} onChange={field.onChange} fileTypeAccepted="image"/>
                         </FormControl>
                         <FormMessage/>
                     </FormItem>
