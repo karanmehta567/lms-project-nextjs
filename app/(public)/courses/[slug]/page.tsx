@@ -9,6 +9,7 @@ import Image from "next/image";
 import { UserAlreadyEnrolled } from "@/app/data/user/user-enrolled-already-course";
 import Link from "next/link";
 import EnrollNow from "./_components/EnrollNow";
+import { buttonVariants } from "@/components/ui/button";
 
 type Params=Promise<{slug:string}>
 
@@ -203,7 +204,9 @@ export default async function SlugPage({params}:{params:Params}){
                                     </ul>
                                 </div>
                                 {checkIfAlreadyBroughtCourse?(
-                                    <Link href={'/dashboard'}>
+                                    <Link href={'/dashboard'} className={buttonVariants({
+                                        className:'w-full'
+                                    })}>
                                         Watch Now
                                     </Link>
                                 ):(

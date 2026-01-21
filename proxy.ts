@@ -16,7 +16,8 @@ const aj = arcjet({
     allow: [
 		"CATEGORY:SEARCH_ENGINE",
 		"CATEGORY:MONITOR", // Google, Bing, etc
-		"CATEGORY:PREVIEW"
+		"CATEGORY:PREVIEW",
+		"STRIPE_WEBHOOK"
 		// Uncomment to allow these other common bot categories
 		// See the full list at https://arcjet.com/bot-list
 		//"CATEGORY:MONITOR", // Uptime monitoring services
