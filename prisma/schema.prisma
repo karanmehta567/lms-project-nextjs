@@ -85,6 +85,7 @@ model Courses {
   category    String
   slug        String          @unique
   createdAt   DateTime        @default(now())
+  stripePriceId String? @unique @default("koe")
   updatedAt   DateTime        @updatedAt
   status      CourseStatus    @default(Draft)
   UserId      String?

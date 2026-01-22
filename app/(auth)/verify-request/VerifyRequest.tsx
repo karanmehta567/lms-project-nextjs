@@ -34,7 +34,7 @@ export default function VerifyRequest(){
         })
     }
     return (
-        <Card className='w-full mx-auto bg-black'>
+        <Card className='w-full mx-auto'>
             <CardHeader className='text-center'>
                 <CardTitle className='text-xl'>Please check your Spam Folder</CardTitle>
                 <CardDescription>We have sent an OTP to your E-mail, please open your mail provider and enter the OTP here</CardDescription>
