@@ -10,8 +10,5 @@ export async function ReqAdmin(){
     if(!session){
         return redirect("/login")
     }
-    if(session.user.role!=='admin'){
-        return redirect('/not-admin')
-    }
     return session
 }
