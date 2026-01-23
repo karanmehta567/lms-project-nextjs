@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Learning Management System (LMS)
 
-## Getting Started
+A full-stack, production-ready Learning Management System with responsive UI, secure authentication, course management, and Stripe-based payments.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Fully Responsive UI  
+- Mobile-first and desktop-friendly design  
+- Built using modern React / Next.js components  
+- Smooth UX with reusable UI components and form validations  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<img width="1896" height="903" alt="01-course" src="https://github.com/user-attachments/assets/e80208ae-3ed7-4ae4-a9f5-92674eca4975" />
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Authentication (Better Auth)  
+- OTP-based login using **Resend**  
+- Social login via **GitHub OAuth**  
+- Custom domain email delivery using **Hostinger**  
+- Secure session handling and role-based access  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Login methods:  
+- Email + OTP  
+- GitHub Social Login  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<img width="1903" height="890" alt="02-course" src="https://github.com/user-attachments/assets/b0c26ba6-a11f-4583-ad51-c05853df82bc" />
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Course Management  
+- Create, edit, and delete courses  
+- Form handling with **React Hook Form**  
+- Server-side validation and error handling  
+- Rich UI for instructors to manage content  
+
+Features:  
+- Add new course  
+- Edit existing course  
+- Delete course  
+- View enrolled users  
+
+<img width="1897" height="915" alt="-4-course" src="https://github.com/user-attachments/assets/1fcb3341-3751-469a-b9a0-f6aa5ceb8dfc" />
+
+
+---
+
+### 4. Payments (Stripe Integration)  
+- Secure checkout using **Stripe**  
+- Payment intent & webhook handling  
+- Course purchase and enrollment flow  
+- Real-time payment confirmation  
+
+<img width="1891" height="911" alt="7 course" src="https://github.com/user-attachments/assets/ad050328-8579-4268-aa14-2f53ae09493e" />
+<img width="647" height="911" alt="8 course" src="https://github.com/user-attachments/assets/792ffbad-aec8-4033-b18a-b109e2f2e246" />
+
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend**
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- shadcn/ui
+- React Hook Form
+
+**Backend**
+- Node.js
+- Better Auth
+- Stripe API
+- Resend (Email OTP)
+- PostgreSQL(based on your setup)
+
+**Auth & Infra**
+- GitHub OAuth
+- Custom domain email via Hostinger
+- JWT / Session-based auth
+
+---
+
+## 🔐 Authentication Flow
+
+1. User enters email  
+2. OTP sent via Resend (Hostinger domain)  
+3. OTP verification  
+4. Session created using Better Auth  
+5. Optional login via GitHub OAuth  
+
+---
+
+## 💳 Payment Flow
+
+1. User selects a course  
+2. Redirected to Stripe Checkout  
+3. Payment confirmation via webhook  
+4. User enrolled in course  
+5. Access granted to course content  
+
+---
+
+## 📂 Project Structure (High Level)
+
