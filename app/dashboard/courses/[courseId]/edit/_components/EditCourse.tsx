@@ -4,7 +4,7 @@ import { CategoryType, CourseLevel, CourseStatus, ZodSchema, ZodSchemaType } fro
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { BugIcon, Loader2Icon, PlusIcon, SparkleIcon } from "lucide-react";
+import { BugIcon, Loader2Icon,SparkleIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import slugify from 'slugify'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -23,6 +23,7 @@ export default function EditCourseForm({data}:IAppProps){
     const [StartTrasition,SetTransition]=useTransition()
     const router=useRouter()
     const form = useForm<ZodSchemaType>({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         resolver: zodResolver(ZodSchema) as any,
         defaultValues: {
             title: data.title,
@@ -47,7 +48,7 @@ export default function EditCourseForm({data}:IAppProps){
                     form.reset()
                     router.push('/dashboard/courses')
                 }
-            } catch (error) {
+            } catch{
                 toast.error("Something went wrong")
             }
         })

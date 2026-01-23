@@ -22,6 +22,7 @@ export default function CreateCourse() {
     const router=useRouter()
   // Initialize form with full schema + defaults
 const form = useForm<ZodSchemaType>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(ZodSchema) as any,
     defaultValues: {
         title: "",
@@ -46,7 +47,7 @@ function onSubmit(values: ZodSchemaType) {
                 form.reset()
                 router.push('/dashboard/courses')
             }
-        } catch (error) {
+        } catch{
             toast.error("Something went wrong")
         }
     })

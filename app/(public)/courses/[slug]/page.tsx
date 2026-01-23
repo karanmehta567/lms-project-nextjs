@@ -21,7 +21,7 @@ export default async function SlugPage({params}:{params:Params}){
         try {
             const parsed = JSON.parse(course.description)
             descriptionText = parsed?.content?.[0]?.content?.[0]?.text ?? ""
-        } catch (e) {
+        } catch{
         // fallback when description is HTML
             descriptionText = course.description.replace(/<[^>]*>/g, "")
         }

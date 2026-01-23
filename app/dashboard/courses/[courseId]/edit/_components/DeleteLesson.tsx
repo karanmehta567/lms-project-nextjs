@@ -1,7 +1,7 @@
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { DeleteLessonPrisma } from "@/lib/edit";
-import { Loader2Icon, Trash2Icon } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -23,8 +23,9 @@ export function DeleteLesson({chapterId,courseId,lessonId}:{chapterId:string,cou
                     toast.success("Succesfully deleted lesson")
                     setOpen(false)
                 }
-            } catch (error) {
-                
+            } catch{
+                toast.error("Unable to delete lesson")
+                return;
             }
         })
     }

@@ -1,7 +1,5 @@
 "use server"
-
 import { ReqUsser } from "@/app/data/user/get-user"
-import arcjet, { fixedWindow } from "@/lib/arcjet"
 import prisma from "@/lib/db"
 import { stripe } from "@/lib/stripe"
 import { APIResponse } from "@/lib/types"

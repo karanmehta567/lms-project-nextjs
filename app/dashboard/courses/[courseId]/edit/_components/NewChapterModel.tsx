@@ -22,6 +22,7 @@ export default function NewChapterModel({courseId}:{courseId:string}){
         setOpen(open)
     }
     const form = useForm<ChapterSchmeaType>({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         resolver: zodResolver(ChapterSchema) as any,
         defaultValues: {
             name:'',
@@ -31,7 +32,7 @@ export default function NewChapterModel({courseId}:{courseId:string}){
     async function onSubmit(values:ChapterSchmeaType){
         SetTransition(async()=>{
             try {
-                const {status,message}=await CreateChapter(values)
+                const {status}=await CreateChapter(values)
                 if(status==='error'){
                     toast.error("Failed to create chapter")
                     return;
@@ -42,7 +43,7 @@ export default function NewChapterModel({courseId}:{courseId:string}){
                     router.refresh()
                     setOpen(false)
                 }
-            } catch (error) {
+            } catch{
                 toast.error("Could not create chapter,try again")
             }
         })

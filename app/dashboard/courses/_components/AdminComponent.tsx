@@ -3,7 +3,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import useImageHook from "@/hooks/use-construct";
-import { ArrowLeft, DeleteIcon, EyeIcon, MoreVertical, PencilIcon, School2Icon, TimerIcon, TrashIcon } from "lucide-react";
+import { ArrowLeft,EyeIcon, MoreVertical, PencilIcon, School2Icon, TimerIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,7 +15,7 @@ export default function AdminLayout({data}:IAppProps){
     try {
         const parsed = JSON.parse(data.description)
         descriptionText = parsed?.content?.[0]?.content?.[0]?.text ?? ""
-    } catch (e) {
+    } catch{
     // fallback when description is HTML
         descriptionText = data.description.replace(/<[^>]*>/g, "")
     }

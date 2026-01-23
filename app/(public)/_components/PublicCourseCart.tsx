@@ -17,7 +17,7 @@ export function PublicCourseCart({data}:IAppProps){
     try {
         const parsed = JSON.parse(data.description)
         descriptionText = parsed?.content?.[0]?.content?.[0]?.text ?? ""
-    } catch (e) {
+    } catch{
     // fallback when description is HTML
         descriptionText = data.description.replace(/<[^>]*>/g, "")
     }

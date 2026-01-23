@@ -9,7 +9,6 @@ import {
     type SlidingWindowRateLimitOptions,
     detectBot,
     protectSignup,
-    shield,
     slidingWindow,
 } from "@arcjet/next";
 import { toNextJsHandler } from "better-auth/next-js";
@@ -21,7 +20,7 @@ const emailOptions = {
   mode: "LIVE", // will block requests. Use "DRY_RUN" to log only
   // Block emails that are disposable, invalid, or have no MX records
   block: ["DISPOSABLE", "INVALID", "NO_MX_RECORDS"],
-} satisfies EmailOptions;
+} as unknown as EmailOptions;
 
 const botOptions = {
   mode: "LIVE",

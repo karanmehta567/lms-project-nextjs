@@ -21,6 +21,7 @@ export default async function Courses(){
                 ):(
                     <>
                     {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         courses.map((course:any)=>(
                             <AdminLayout data={course} key={course.id}/>
                         ))

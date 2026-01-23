@@ -66,7 +66,7 @@ export async function EditCoursePrisma(data:ZodSchemaType,courseId:string):Promi
             status:'success',
             message:'Course Edited!'
         }
-    } catch (error) {
+    } catch {
         return {
             status:'error',
             message:'Failed to update course'
@@ -229,7 +229,7 @@ export async function DeleteChapterPrisma(chapterId:string ,courseId:string):Pro
             status:'success',
             message:'Deleted'
         }
-    } catch (error) {
+    } catch {
         return { 
             status:'error',
             message:'Failed to delete chapter'
@@ -294,7 +294,7 @@ export async function DeleteLessonPrisma(chapterId:string ,courseId:string,lesso
             status:'success',
             message:'Deleted'
         }
-    } catch (error) {
+    } catch{
         return { 
             status:'error',
             message:'Failed to delete lesson'
@@ -340,7 +340,7 @@ export async function CreateLesson(values:LessonSchemaType):Promise<APIResponse>
             status:'success',
             message:'Lesson Created Succesfully'
         }
-    } catch (error) {
+    } catch{
         return {
             status:'error',
             message:'Failed to create Lesson'
@@ -383,7 +383,7 @@ export async function CreateChapter(values:ChapterSchmeaType):Promise<APIRespons
             status:'success',
             message:'Chapter Created Succesfully'
         }
-    } catch (error) {
+    } catch{
         return {
             status:'error',
             message:'Failed to create chapter'

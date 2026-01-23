@@ -23,8 +23,9 @@ export function DeleteChapter({chapterId,courseId}:{chapterId:string,courseId:st
                     toast.success("Succesfully deleted chapter")
                     setOpen(false)
                 }
-            } catch (error) {
-                
+            } catch{
+                toast.message("Unable to delete chapter")
+                return
             }
         })
     }

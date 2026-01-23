@@ -49,7 +49,7 @@ export async function POST(request:Request){
             key:uniqueKey
         }
         return NextResponse.json(response)
-    } catch (error) {
+    } catch{
         return NextResponse.json({
             error:'Failed to create pre-signed url'
         },{status:500})

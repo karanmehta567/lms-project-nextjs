@@ -25,7 +25,6 @@ import {
     ChevronRight,
     FileText,
     GripVertical,
-    Trash2Icon,
 } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'

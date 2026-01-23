@@ -24,7 +24,7 @@ function LoginForm() {
                             toast.success("Signing with Github.....")
                         },
                         onError:(error)=>{
-                            toast.error('Some error occured!')
+                            toast.error(error.error.message)
                         }
                     }
                 })

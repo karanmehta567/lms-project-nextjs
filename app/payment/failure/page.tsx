@@ -13,7 +13,7 @@ export default function PaymentFailure(){
                     </div>
                     <div className="mt-3 text-center sm:mt-5 w-full">
                         <h2 className="text-xl font-semibold">Payment Cancelled</h2>
-                        <p className="text-sm mt-2 text-muted-foreground tracking-tight text-balance">No worries,you wont't be charged,please try again later!</p>
+                        <p className="text-sm mt-2 text-muted-foreground tracking-tight text-balance">No worries,you will not be charged,please try again later!</p>
                         <Link href={'/'} className={buttonVariants({className:'w-full mt-5 cursor-pointer'})}>
                             <ArrowLeft className="size-4"/>
                             Go back to Homepage

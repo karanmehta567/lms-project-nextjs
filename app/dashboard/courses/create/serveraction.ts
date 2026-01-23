@@ -53,7 +53,7 @@ export async function CreateCoursePrisma(value:ZodSchemaType):Promise<APIRespons
             status:'success',
             message:'Course Created!'
         }
-    } catch (error) {
+    } catch{
         return {
             status:'error',
             message:'An Error occured while submitting form'

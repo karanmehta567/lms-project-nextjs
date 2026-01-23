@@ -24,7 +24,7 @@ interface IAppProps{
 export function LessonForm({chapterId,data,courseId}:IAppProps){
     const [StartTrasition,SetTransition]=useTransition()
     const form = useForm<LessonSchemaType>({
-            resolver: zodResolver(LessonSchema) as any,
+            resolver: zodResolver(LessonSchema),
             defaultValues: {
                 name:data.title,
                 chapterId:chapterId,
@@ -43,7 +43,7 @@ export function LessonForm({chapterId,data,courseId}:IAppProps){
                 }else{
                     toast.success(result.message)
                 }
-            } catch (error) {
+            } catch{
                 toast.error("Something went wrong")
             }
         })

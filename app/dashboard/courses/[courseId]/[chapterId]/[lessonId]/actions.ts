@@ -30,7 +30,7 @@ export async function UpdateLesson(values:LessonSchemaType,lessonId:string):Prom
             status:'success',
             message:'Succesfully updated course!'
         }
-    } catch (error) {
+    } catch{
         return {
             status:'error',
             message:'Failed to update'

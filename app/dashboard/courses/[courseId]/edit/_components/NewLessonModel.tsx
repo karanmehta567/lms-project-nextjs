@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { CreateChapter, CreateLesson } from "@/lib/edit";
+import {CreateLesson } from "@/lib/edit";
 import { LessonSchema, LessonSchemaType} from "@/lib/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon } from "lucide-react";
@@ -22,6 +22,7 @@ export default function NewLessonModel({courseId,chapterId}:{courseId:string,cha
         setOpen(open)
     }
     const form = useForm<LessonSchemaType>({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         resolver: zodResolver(LessonSchema) as any,
         defaultValues: {
             name:'',
@@ -32,7 +33,7 @@ export default function NewLessonModel({courseId,chapterId}:{courseId:string,cha
     async function onSubmit(values:LessonSchemaType){
         SetTransition(async()=>{
             try {
-                const {status,message}=await CreateLesson(values)
+                const {status}=await CreateLesson(values)
                 if(status==='error'){
                     toast.error("Failed to create lesson")
                     return;
@@ -43,7 +44,7 @@ export default function NewLessonModel({courseId,chapterId}:{courseId:string,cha
                     router.refresh()
                     setOpen(false)
                 }
-            } catch (error) {
+            } catch{
                 toast.error("Could not create lesson,try again")
             }
         })

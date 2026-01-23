@@ -90,7 +90,7 @@ export function Uploader({onChange,value,fileTypeAccepted}:IAppProps){
                 xhr.setRequestHeader("Content-Type", file.type)
                 xhr.send(file)
             })
-        } catch (error) {
+        } catch{
             toast.error("Something went wrong")
             SetUplaodState((prev)=>({
                 ...prev,
@@ -127,7 +127,7 @@ export function Uploader({onChange,value,fileTypeAccepted}:IAppProps){
                 return;
             }
             onChange?.("")
-            SetUplaodState((prev)=>({
+            SetUplaodState(()=>({
                 file:null,
                 uploading:false,
                 indicator:0,
@@ -138,7 +138,7 @@ export function Uploader({onChange,value,fileTypeAccepted}:IAppProps){
                 isDeleting:false
             }))
             toast.success("File deleted succesfully!")
-        } catch (error) {
+        } catch{
             toast.error("File not deleted !")
             SetUplaodState((prev)=>({
                 ...prev,

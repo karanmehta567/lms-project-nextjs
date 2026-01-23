@@ -30,7 +30,7 @@ export async function DELETE(request:Request){
         })
         await S3Bucket.send(command)
         return NextResponse.json({message:'File deleted'},{status:200})
-    } catch (error) {
+    } catch{
         return NextResponse.json({message:'Could not delete file,try again!'},{status:500})
     }
 }
