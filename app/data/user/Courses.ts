@@ -2,10 +2,13 @@ import prisma from "@/lib/db";
 import { ReqAdmin } from "./require";
 
 export async function GetCourses(){
-    await ReqAdmin();
+    const user=await ReqAdmin();
     const data=await prisma.courses.findMany({
         orderBy:{
             createdAt:'desc'
+        },
+        where:{
+            id:user.session.id
         },
         select:{
             id:true,
