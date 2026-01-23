@@ -101,7 +101,5 @@ Features:
 4. User enrolled in course  
 5. Access granted to course content  
 
----
 
-## 📂 Project Structure (High Level)
 
