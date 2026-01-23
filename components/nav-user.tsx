@@ -64,8 +64,8 @@ export function NavUser() {
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{session?.user?.name}</span>
-                <span className="text-muted-foreground truncate text-xs">
-                  {session?.user?.name}
+                <span className="truncate text-xs">
+                  {session?.user?.email}
                 </span>
               </div>
               <IconDotsVertical className="ml-auto size-4" />
